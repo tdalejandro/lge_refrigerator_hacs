@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+import hmac
 from io import BytesIO
 from pathlib import Path
+import secrets
 from typing import Any
 
 import qrcode
@@ -243,11 +245,21 @@ class LGERefrigeratorHomeKitBridge:
         self._remove_listener: Callable[[], None] | None = None
         self._remove_stop_listener: Callable[[], None] | None = None
         self._driver_started = False
+        # The notification can fetch this image without a frontend auth header.
+        self._homekit_qr_token = secrets.token_urlsafe(32)
+
+    @property
+    def homekit_qr_token(self) -> str:
+        """Return the unguessable, process-local token for the pairing QR."""
+        return self._homekit_qr_token
 
     @property
     def homekit_qr_url(self) -> str:
-        """Return the authenticated QR endpoint rendered in the notification."""
-        return f"/api/{DOMAIN}/homekit_qr/{self.entry.entry_id}"
+        """Return the token-protected QR endpoint rendered in the notification."""
+        return (
+            f"/api/{DOMAIN}/homekit_qr/"
+            f"{self.entry.entry_id}/{self.homekit_qr_token}"
+        )
 
     def homekit_pairing_uri(self) -> str:
         """Build the stable HomeKit setup URI from pyhap's persisted state."""
@@ -344,29 +356,38 @@ class LGERefrigeratorHomeKitBridge:
 
 
 class LGERefrigeratorHomeKitQrView(HomeAssistantView):
-    """Serve an entry's HomeKit QR code to the authenticated HA frontend."""
+    """Serve a token-protected QR code to the persistent notification."""
 
-    url = f"/api/{DOMAIN}/homekit_qr/{{entry_id}}"
+    url = f"/api/{DOMAIN}/homekit_qr/{{entry_id}}/{{token}}"
     name = "api:lge_refrigerator:homekit_qr"
-    requires_auth = True
+    requires_auth = False
 
     def __init__(self, hass: HomeAssistant) -> None:
         self._hass = hass
 
-    async def get(self, request: web.Request, entry_id: str) -> web.Response:
-        """Return the QR SVG only for an active integration entry."""
+    async def get(
+        self, request: web.Request, entry_id: str, token: str
+    ) -> web.Response:
+        """Return the QR only while its entry remains unpaired and token matches."""
         entry_data = self._hass.data.get(DOMAIN, {}).get(entry_id)
         if entry_data is None:
             raise web.HTTPNotFound
 
         bridge = entry_data.get(DATA_HOMEKIT)
-        if bridge is None:
+        if (
+            bridge is None
+            or bridge.driver.state.paired
+            or not hmac.compare_digest(token, bridge.homekit_qr_token)
+        ):
             raise web.HTTPNotFound
 
         return web.Response(
             body=bridge.homekit_qr_svg(),
             content_type="image/svg+xml",
-            headers={"Cache-Control": "no-store"},
+            headers={
+                "Cache-Control": "no-store, private",
+                "X-Content-Type-Options": "nosniff",
+            },
         )
 
 
