@@ -1,5 +1,9 @@
 # LGE Refrigerator
 
+<p align="center">
+  <img src="assets/logo.webp" alt="LGE Refrigerator" width="160">
+</p>
+
 Integración HACS independiente para **refrigeradores LG ThinQ Wi-Fi**. No crea
 entidades para lavadoras, aires acondicionados ni ningún otro equipo LG.
 
