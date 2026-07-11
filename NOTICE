@@ -1,0 +1,10 @@
+LGE Refrigerator
+Copyright 2026 Alejandro Torres
+
+This project includes a modified, vendored copy of the WideQ ThinQ client from
+ollo69/ha-smartthinq-sensors, licensed under the Apache License 2.0.
+Source: https://github.com/ollo69/ha-smartthinq-sensors
+
+The HomeKit refrigerator service layout is informed by nVuln/homebridge-lg-thinq,
+also licensed under the Apache License 2.0.
+Source: https://github.com/nVuln/homebridge-lg-thinq

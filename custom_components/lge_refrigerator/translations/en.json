@@ -1,0 +1,50 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "LG ThinQ account",
+        "description": "Only Wi-Fi refrigerators will be discovered. Enable browser login for a social account.",
+        "data": {
+          "country": "Account country (MX, US, ES)",
+          "language": "ThinQ language (es-MX, en-US)",
+          "username": "LG ThinQ email",
+          "password": "LG ThinQ password",
+          "use_redirect": "Use browser login"
+        }
+      },
+      "callback": {
+        "title": "Authorize LG ThinQ",
+        "description": "Open the login URL, sign in to LG, then paste the complete callback URL.",
+        "data": {"login_url": "LG login URL", "callback_url": "Callback URL"}
+      },
+      "refrigerator": {
+        "title": "Refrigerator",
+        "data": {"device_id": "LG refrigerator"}
+      },
+      "homekit": {
+        "title": "Direct HomeKit",
+        "description": "One HomeKit accessory will include every refrigerator service.",
+        "data": {
+          "homekit_name": "Home app name",
+          "homekit_port": "HomeKit port",
+          "homekit_pin": "HomeKit code (XXX-XX-XXX)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to LG ThinQ.",
+      "credentials_required": "Enter email and password or enable browser login.",
+      "invalid_auth": "LG ThinQ rejected the authentication.",
+      "invalid_country": "Country must be a valid ISO code, such as MX.",
+      "invalid_language": "Language must look like es-MX or en-US.",
+      "invalid_port": "Port must be between 1024 and 65535.",
+      "invalid_pin": "HomeKit code must use the XXX-XX-XXX format."
+    },
+    "abort": {
+      "cannot_connect": "Unable to connect to LG ThinQ.",
+      "invalid_auth": "LG ThinQ rejected the authentication.",
+      "no_refrigerators": "No compatible Wi-Fi refrigerators exist in this LG ThinQ account.",
+      "already_configured": "This refrigerator is already configured."
+    }
+  }
+}

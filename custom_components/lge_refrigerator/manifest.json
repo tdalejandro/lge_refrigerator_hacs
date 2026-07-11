@@ -1,0 +1,13 @@
+{
+  "domain": "lge_refrigerator",
+  "name": "LGE Refrigerator",
+  "codeowners": ["@tdalejandro"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/tdalejandro/lge-refrigerator",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/tdalejandro/lge-refrigerator/issues",
+  "requirements": ["charset_normalizer>=3.2.0", "xmltodict>=0.13.0"],
+  "version": "0.1.0"
+}

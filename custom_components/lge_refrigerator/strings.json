@@ -1,0 +1,55 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Cuenta LG ThinQ",
+        "description": "Solo se descubrirán refrigeradores Wi-Fi. Para una cuenta social, activa el inicio mediante navegador.",
+        "data": {
+          "country": "País de la cuenta (MX, US, ES)",
+          "language": "Idioma de ThinQ (es-MX, en-US)",
+          "username": "Correo LG ThinQ",
+          "password": "Contraseña LG ThinQ",
+          "use_redirect": "Usar inicio de sesión mediante navegador"
+        }
+      },
+      "callback": {
+        "title": "Autorizar LG ThinQ",
+        "description": "Abre la URL de inicio, inicia sesión en LG y pega aquí la URL de retorno completa.",
+        "data": {
+          "login_url": "URL de inicio de LG",
+          "callback_url": "URL de retorno"
+        }
+      },
+      "refrigerator": {
+        "title": "Refrigerador",
+        "data": {
+          "device_id": "Refrigerador LG"
+        }
+      },
+      "homekit": {
+        "title": "HomeKit directo",
+        "description": "Se creará un solo accesorio HomeKit con todos los servicios del refrigerador. El puerto predeterminado 21100 no reutiliza el 21090 fallido.",
+        "data": {
+          "homekit_name": "Nombre en Casa",
+          "homekit_port": "Puerto HomeKit",
+          "homekit_pin": "Código HomeKit (XXX-XX-XXX)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "No se pudo conectar a LG ThinQ.",
+      "credentials_required": "Indica correo y contraseña, o activa el inicio mediante navegador.",
+      "invalid_auth": "LG ThinQ rechazó la autenticación.",
+      "invalid_country": "El país debe ser un código ISO válido, por ejemplo MX.",
+      "invalid_language": "El idioma debe ser como es-MX o en-US.",
+      "invalid_port": "El puerto debe estar entre 1024 y 65535.",
+      "invalid_pin": "El código HomeKit debe tener el formato XXX-XX-XXX."
+    },
+    "abort": {
+      "cannot_connect": "No se pudo conectar a LG ThinQ.",
+      "invalid_auth": "LG ThinQ rechazó la autenticación.",
+      "no_refrigerators": "No hay refrigeradores Wi-Fi compatibles en esta cuenta LG ThinQ.",
+      "already_configured": "Este refrigerador ya está configurado."
+    }
+  }
+}
